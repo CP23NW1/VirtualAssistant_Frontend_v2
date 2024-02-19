@@ -7,7 +7,7 @@
     "test": "tsc --noEmit",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
-    "serve": "serve -p 5000",
+    "serve": "serve -p 3000",
     "clean": "rimraf dist"
   },
   "devDependencies": {
@@ -51,7 +51,9 @@
     "vue-template-compiler": "^2.7.15",
     "webpack": "^5.89.0",
     "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^4.15.1"
+    "webpack-dev-server": "^4.15.1",
+    "postcss-preset-env": "^9.3.0",
+    "file-loader": "^6.2.0"
   },
   "dependencies": {
     "core-js": "^3.8.3",

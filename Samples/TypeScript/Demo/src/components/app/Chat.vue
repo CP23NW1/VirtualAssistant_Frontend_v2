@@ -55,7 +55,7 @@
                   src="../../assets/ai-bot-logo.jpg"
                   class="w-6 h-6 rounded-full float-left"
                 />
-                <p class="assistant-name">Assistant</p>
+                <p class="assistant-name">น้องมณี</p>
                 <p class="bg-gray-300 p-3 rounded-lg" id="msg">
                   {{ message.content }}
                 </p>
@@ -116,17 +116,13 @@ export default {
 
 <script setup>
 import { ref, reactive, watch, onMounted } from "vue";
-
-const sdk = require("microsoft-cognitiveservices-speech-sdk");
-const key = "8d959935a5324cd6af89d3be89088263";
-const region = "southeastasia";
+import { speakAssistantResponse } from "./Live2d.vue";
 
 const userQueryText = ref("");
 const chatContainer = ref(null);
 const messages = reactive([]);
 const token = localStorage.getItem("token");
 
-// Clear the chat messages locally and on the server
 function clearchat() {
   fetch("http://localhost:7000/api/delete_message", {
     method: "DELETE",
@@ -149,7 +145,6 @@ function clearchat() {
     });
 }
 
-// Handle user message submission
 function handleUserSubmit() {
   if (!userQueryText.value.trim()) {
     alert("Please enter a message");
@@ -163,6 +158,7 @@ function handleUserSubmit() {
     content: userQueryText.value,
   };
   messages.push(userMsg);
+
   userQueryText.value = "";
 
   scrollToBottom();
@@ -213,35 +209,12 @@ function handleUserSubmit() {
   }
 }
 
-// Speak assistant's response using speech synthesis
-function speakAssistantResponse(content) {
-  const speechConfig = sdk.SpeechConfig.fromSubscription(key, region);
-  const speechSynthesizer = new sdk.SpeechSynthesizer(speechConfig);
-
-  const ssml = `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xml:lang="th-TH"><voice name="th-TH-PremwadeeNeural"><prosody rate="-20.00%" volume="-50.00%" pitch="+40.00%">${content}</prosody></voice></speak>`;
-
-  speechSynthesizer.speakSsmlAsync(
-    ssml,
-    (result) => {
-      speechSynthesizer.close();
-      result.audioData;
-    },
-    (error) => {
-      console.error("Speech synthesis error:", error);
-      alert("Speech synthesis error. Please try again.");
-      speechSynthesizer.close();
-    }
-  );
-}
-
-// Scroll to the bottom of the chat container
 function scrollToBottom() {
   if (chatContainer.value) {
     chatContainer.value.scrollTop = chatContainer.value.scrollHeight;
   }
 }
 
-// Retrieve chat history from the server and update messages
 function historyMessage() {
   if (!token) {
     alert("Token not found in localStorage");
@@ -271,7 +244,6 @@ function historyMessage() {
   }
 }
 
-// Initialize component on mount
 onMounted(() => {
   historyMessage();
   const previousMessage = JSON.parse(localStorage.getItem("messages")) || [];
@@ -279,7 +251,6 @@ onMounted(() => {
   scrollToBottom();
 });
 
-// Watch for changes in messages and scroll to the bottom
 watch(messages, () => {
   scrollToBottom();
 });

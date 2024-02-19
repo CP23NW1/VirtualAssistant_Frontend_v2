@@ -84,4 +84,4 @@ export const CubismLoggingLevel: LogLevel = LogLevel.LogLevel_Verbose;
 
 // デフォルトのレンダーターゲットサイズ
 export const RenderTargetWidth = 1024;
-export const RenderTargetHeight = 500;
+export const RenderTargetHeight = 512;

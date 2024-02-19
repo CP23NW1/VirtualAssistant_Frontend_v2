@@ -846,7 +846,7 @@ export class LAppModel extends CubismUserModel {
       LAppPal.printMessage('Model data does not exist.');
     }
   }
-
+  
   /**
    * コンストラクタ
    */
@@ -884,7 +884,10 @@ export class LAppModel extends CubismUserModel {
     this._idParamBodyAngleX = CubismFramework.getIdManager().getId(
       CubismDefaultParameterId.ParamBodyAngleX
     );
-
+    this._idParamMouthOpenY = CubismFramework.getIdManager().getId(
+      CubismDefaultParameterId.ParamMouthOpenY
+    );
+    
     if (LAppDefine.MOCConsistencyValidationEnable) {
       this._mocConsistency = true;
     }
@@ -917,6 +920,7 @@ export class LAppModel extends CubismUserModel {
   _idParamEyeBallX: CubismIdHandle; // パラメータID: ParamEyeBallX
   _idParamEyeBallY: CubismIdHandle; // パラメータID: ParamEyeBAllY
   _idParamBodyAngleX: CubismIdHandle; // パラメータID: ParamBodyAngleX
+  _idParamMouthOpenY: CubismIdHandle;
 
   _state: LoadStep; // 現在のステータス管理用
   _expressionCount: number; // 表情データカウント

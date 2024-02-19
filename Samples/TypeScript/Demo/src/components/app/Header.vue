@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <header class="bg-black">
     <div class="flex justify-between items-center">
       <div>
         <div
@@ -8,18 +8,17 @@
           Virtual Book Recommendation Assistant
         </div>
       </div>
-      <div class="flex items-center">
+      <button class="flex items-center" @click="handleLogout">
         <img
           class="w-[41px] h-[37px] drop-shadow-[0_5.2px_5.2px_rgba(0,0,0,0.8)]"
           src="../../assets/logout-512.png"
         />
         <div
-          @click="handleLogout"
           class="text-right text-white text-xl font-normal font-['Inter'] leading-[67.20px] mr-2 drop-shadow-[0_5.2px_5.2px_rgba(0,0,0,0.8)]"
         >
           Logout
         </div>
-      </div>
+      </button>
     </div>
   </header>
 </template>
@@ -61,10 +60,3 @@ async function handleLogout() {
   }
 }
 </script>
-
-<style>
-body {
-  background-image: url("../../assets/137931-anime-landscape-library-nature.jpg");
-  background-position: center;
-}
-</style>

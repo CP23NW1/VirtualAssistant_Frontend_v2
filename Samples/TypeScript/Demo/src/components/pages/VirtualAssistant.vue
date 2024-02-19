@@ -2,8 +2,8 @@
   <Chat />
   <Footer />
   <Header />
-  <Live2d />
   <Music />
+  <Live2d />
 </template>
 
 <script>

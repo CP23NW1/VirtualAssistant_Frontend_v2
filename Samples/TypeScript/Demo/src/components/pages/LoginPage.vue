@@ -52,10 +52,10 @@
           </div>
 
           <div class="text-right mt-2">
-            <a
-              href="#"
+            <router-link
+              to="/forgot_password"
               class="text-sm font-semibold text-gray-700 hover:text-blue-600 focus:text-blue-600"
-              >Forgot Password?</a
+              >Forgot Password?</router-link
             >
           </div>
 
@@ -83,7 +83,18 @@
 </template>
 
 <script>
+import { LAppDelegate } from "../../logic/lappdelegate";
+import { LAppGlManager } from "../../logic/lappglmanager";
 export default {
+  mounted() {
+    if (
+      !LAppGlManager.getInstance() ||
+      !LAppDelegate.getInstance().initialize()
+    ) {
+      return;
+    }
+    LAppDelegate.getInstance().run();
+  },
   name: "LoginPage",
 };
 </script>

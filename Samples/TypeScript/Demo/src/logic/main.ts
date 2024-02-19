@@ -12,21 +12,21 @@ import { LAppGlManager } from './lappglmanager';
 /**
  * ブラウザロード後の処理
  */
-window.addEventListener(
-  'load',
-  (): void => {
-    // Initialize WebGL and create the application instance
-    if (
-      !LAppGlManager.getInstance() ||
-      !LAppDelegate.getInstance().initialize()
-    ) {
-      return;
-    }
+// window.addEventListener(
+//   'load',
+//   (): void => {
+//     // Initialize WebGL and create the application instance
+//     if (
+//       !LAppGlManager.getInstance() ||
+//       !LAppDelegate.getInstance().initialize()
+//     ) {
+//       return;
+//     }
 
-    LAppDelegate.getInstance().run();
-  },
-  { passive: true }
-);
+//     LAppDelegate.getInstance().run();
+//   },
+//   { passive: true }
+// );
 
 /**
  * 終了時の処理
