@@ -128,7 +128,7 @@ async function Login() {
 
       localStorage.setItem("token", token);
 
-      router.push("/VirtualAssistant");
+      router.push("/virtual_assistant");
     } else {
       const data = await response.json();
       alert(data.detail);
