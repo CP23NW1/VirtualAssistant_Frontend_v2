@@ -11,7 +11,7 @@ import * as _ from './logic/main';
 
 
 const routes = [
-  { path: '/', component: VirtualAssistant },
+  { path: '/', component: LoginPage },
   { path: '/register', component: RegisterPage },
   { path: '/virtual_assistant', component: VirtualAssistant },
   { path: '/forgot_password', component: ForgotPasswordPage },
