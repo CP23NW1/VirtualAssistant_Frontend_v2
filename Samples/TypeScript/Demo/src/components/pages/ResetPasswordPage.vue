@@ -75,7 +75,7 @@ const confirmPassword = ref("");
 
 const resetPassword = async () => {
   try {
-    const response = await fetch("http://localhost:7000/api/reset-password", {
+    const response = await fetch("http://10.4.85.21:7000/api/reset-password", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

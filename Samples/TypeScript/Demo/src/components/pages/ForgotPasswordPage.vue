@@ -68,7 +68,7 @@ const email = ref("");
 
 const sendEmail = async () => {
   try {
-    const response = await fetch("http://localhost:7000/api/forget-password", {
+    const response = await fetch("http://10.4.85.21:7000/api/forget-password", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

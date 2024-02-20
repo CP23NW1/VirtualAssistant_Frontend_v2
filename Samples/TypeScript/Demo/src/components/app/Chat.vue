@@ -176,7 +176,7 @@ function handleUserSubmit() {
   };
 
   try {
-    fetch("http://localhost:7000/api/user_message", {
+    fetch("http://10.4.85.21:7000/api/user_message", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -222,7 +222,7 @@ function historyMessage() {
   }
 
   try {
-    fetch("http://localhost:7000/api/history_message", {
+    fetch("http://10.4.85.21:7000/api/history_message", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

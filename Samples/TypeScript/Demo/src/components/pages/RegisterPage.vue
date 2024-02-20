@@ -80,8 +80,8 @@
   </section>
 </template>
 <script>
-import { LAppDelegate } from '../../logic/lappdelegate';
-import { LAppGlManager } from '../../logic/lappglmanager';
+import { LAppDelegate } from "../../logic/lappdelegate";
+import { LAppGlManager } from "../../logic/lappglmanager";
 export default {
   mounted() {
     if (
@@ -107,7 +107,7 @@ const router = useRouter();
 
 const registerUser = async () => {
   try {
-    const response = await fetch("http://localhost:7000/api/auth/register", {
+    const response = await fetch("http://10.4.85.21:7000/api/auth/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
