@@ -21,8 +21,14 @@ export default {
 <style>
 body {
   background-color: #f9f9f9;
-  font: normal 1em / 1.5em BlinkMacSystemFont, -apple-system, "Segoe UI", roboto,
-    helvetica, arial, sans-serif;
+  font:
+    normal 1em / 1.5em BlinkMacSystemFont,
+    -apple-system,
+    "Segoe UI",
+    roboto,
+    helvetica,
+    arial,
+    sans-serif;
 }
 
 h1 {
