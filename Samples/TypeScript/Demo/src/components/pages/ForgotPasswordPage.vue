@@ -63,6 +63,7 @@ export default {
 </script>
 <script setup>
 import { ref } from "vue";
+import { router } from "../../main.ts";
 
 const email = ref("");
 

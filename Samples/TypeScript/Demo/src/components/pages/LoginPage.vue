@@ -101,13 +101,14 @@ export default {
 
 <script setup>
 import { ref } from "vue";
-import { useRouter } from "vue-router";
+// import { useRouter } from "vue-router";
+import { router } from "../../main.ts";
 
 const email = ref("");
 const password = ref("");
-const router = useRouter();
+// const router = useRouter();
 
-async function Login() {
+const Login = async () => {
   const credentials = {
     email: email.value,
     password: password.value,
@@ -115,6 +116,7 @@ async function Login() {
 
   try {
     const response = await fetch("http://10.4.85.21:7000/api/auth/login", {
+      // const response = await fetch("http://localhost:7000/api/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -127,6 +129,7 @@ async function Login() {
       const token = data.access_token;
 
       localStorage.setItem("token", token);
+      console.log(router);
 
       router.push("/virtual_assistant");
     } else {
@@ -136,5 +139,5 @@ async function Login() {
   } catch (error) {
     alert("An error occurred during login: " + error.message);
   }
-}
+};
 </script>

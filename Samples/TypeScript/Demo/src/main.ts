@@ -11,17 +11,19 @@ import * as _ from './logic/main';
 
 
 const routes = [
-  { path: '/', component: VirtualAssistant },
+  { path: '/', component: LoginPage },
   { path: '/register', component: RegisterPage },
   { path: '/virtual_assistant', component: VirtualAssistant },
   { path: '/forgot_password', component: ForgotPasswordPage },
   { path: '/reset_password', component: ResetPasswordPage},
 ];
 
-const router = createRouter({
+export const router = createRouter({
   history: createWebHistory(),
   routes,
 });
+
+console.log(router)
 
 const app = createApp(App);
 

@@ -49,12 +49,6 @@ export const PowerImageName = 'CloseNormal.png';
 export const ModelDir: string[] = [
   'tororo',
   'hijiki',
-  'hiyori',
-  'haru',
-  'chitose',
-  'mao',
-  'sizuku',
-  'wanko'
 ];
 export const ModelDirSize: number = ModelDir.length;
 

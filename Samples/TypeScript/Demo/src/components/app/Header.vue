@@ -30,16 +30,18 @@ export default {
 </script>
 
 <script setup>
-import { useRouter } from "vue-router";
+// import { useRouter } from "vue-router";
+import { router } from "../../main.ts";
 
-const router = useRouter();
+// const router = useRouter();
 
 async function handleLogout() {
   const confirmLogout = window.confirm("Are you sure you want to log out?");
 
   if (confirmLogout) {
     try {
-      const response = await fetch("http://localhost:7000/api/auth/logout", {
+      const response = await fetch("http://10.4.85.21:7000/api/auth/logout", {
+        // const response = await fetch("http://localhost:7000/api/auth/logout", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

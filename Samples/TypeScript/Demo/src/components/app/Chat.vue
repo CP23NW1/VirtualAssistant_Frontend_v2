@@ -146,6 +146,7 @@
 
 <script>
 import { LAppLive2DManager } from "../../logic/lapplive2dmanager";
+import { ConsoleLoggingListener } from "microsoft-cognitiveservices-speech-sdk/distrib/lib/src/common.browser/ConsoleLoggingListener";
 export default {
   name: "Chat",
   methods: {
@@ -173,39 +174,37 @@ const sounds = ["Women Sound1", "Women Sound2", "Men Sound"];
 const userQueryText = ref("");
 const chatContainer = ref(null);
 const messages = reactive([]);
-// const token = localStorage.getItem("token");
+const token = localStorage.getItem("token");
 
-// function clearchat() {
-//   fetch("http://localhost:7000/api/delete_message", {
-//     method: "DELETE",
-//     headers: {
-//       "Content-Type": "application/json",
-//       Authorization: `Bearer ${token}`,
-//     },
-//   })
-//     .then((response) => {
-//       if (response.ok) {
-//         messages.length = 0;
-//         localStorage.removeItem("messages");
-//       } else {
-//         console.error("Failed to delete messages from the server");
-//       }
-//     })
-//     .catch((error) => {
-//       console.error("Error during delete request:", error);
-//       alert("Error during delete request. Please try again.");
-//     });
-// }
+function clearchat() {
+  fetch("http://localhost:7000/api/delete_message", {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((response) => {
+      if (response.ok) {
+        messages.length = 0;
+        localStorage.removeItem("messages");
+      } else {
+        console.error("Failed to delete messages from the server");
+      }
+    })
+    .catch((error) => {
+      console.error("Error during delete request:", error);
+      alert("Error during delete request. Please try again.");
+    });
+}
 
 function selectVoice() {
-  if (sounds === "Women Sound1") {
-    return women;
-  } else if (sounds === "Women Sound2") {
-    return women;
-  } else if (sounds === "Men Sound") {
-    return men;
+  if (selectedSound.value === "Women Sound1") {
+    return "women";
+  } else if (selectedSound.value === "Women Sound2") {
+    return "women";
   } else {
-    return women;
+    return "men";
   }
 }
 
@@ -247,7 +246,7 @@ function handleUserSubmit() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        // Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(msg),
     })
@@ -282,37 +281,37 @@ function scrollToBottom() {
   }
 }
 
-// function historyMessage() {
-//   if (!token) {
-//     alert("Token not found in localStorage");
-//     return;
-//   }
-
-//   try {
-//     fetch("http://10.4.85.21:7000/api/history_message", {
-//       method: "GET",
-//       headers: {
-//         "Content-Type": "application/json",
-//         Authorization: `Bearer ${token}`,
-//       },
-//     })
-//       .then((response) => response.json())
-//       .then((data) => {
-//         localStorage.setItem("messages", JSON.stringify(data.history_message));
-//         scrollToBottom();
-//       })
-//       .catch((error) => {
-//         console.error("Error during history fetch:", error);
-//         alert("Error during history fetch. Please try again.");
-//       });
-//   } catch (err) {
-//     console.error("Error:", err);
-//     alert("An error occurred. Please try again.");
-//   }
-// }
+function historyMessage() {
+  if (!token) {
+    alert("Token not found in localStorage");
+    return;
+  }
+  try {
+    fetch("http://10.4.85.21:7000/api/history_message", {
+    // fetch("http://localhost:7000/api/history_message", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        localStorage.setItem("messages", JSON.stringify(data.history_message));
+        scrollToBottom();
+      })
+      .catch((error) => {
+        console.error("Error during history fetch:", error);
+        alert("Error during history fetch. Please try again.");
+      });
+  } catch (err) {
+    console.error("Error:", err);
+    alert("An error occurred. Please try again.");
+  }
+}
 
 onMounted(() => {
-  // historyMessage();
+  historyMessage();
   const previousMessage = JSON.parse(localStorage.getItem("messages")) || [];
   messages.push(...previousMessage);
   scrollToBottom();
@@ -350,7 +349,7 @@ async function speakAssistantResponse(content, selectedSound) {
       method: "POST",
       headers: requestHeaders,
       body: ssml,
-    }
+    },
   );
 
   const blob = await response.blob();

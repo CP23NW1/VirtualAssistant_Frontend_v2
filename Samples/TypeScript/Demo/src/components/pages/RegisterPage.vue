@@ -97,17 +97,19 @@ export default {
 </script>
 <script setup>
 import { ref } from "vue";
-import { useRouter } from "vue-router";
+// import { useRouter } from "vue-router";
+import { router } from "../../main.ts";
 
 const name = ref("");
 const email = ref("");
 const password = ref("");
 const confirmPassword = ref("");
-const router = useRouter();
+// const router = useRouter();
 
 const registerUser = async () => {
   try {
     const response = await fetch("http://10.4.85.21:7000/api/auth/register", {
+      // const response = await fetch("http://localhost:7000/api/auth/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

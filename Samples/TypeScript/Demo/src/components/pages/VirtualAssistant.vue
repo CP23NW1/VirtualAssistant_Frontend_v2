@@ -25,11 +25,11 @@ export default {
 };
 </script>
 
-<!-- <script setup>
+<script setup>
 import { onMounted } from "vue";
-import { useRouter } from "vue-router";
-
-const router = useRouter();
+// import { useRouter } from "vue-router";
+import { router } from "../../main.ts";
+// const router = useRouter();
 
 onMounted(() => {
   try {
@@ -47,4 +47,4 @@ onMounted(() => {
     }
   }
 });
-</script> -->
+</script>

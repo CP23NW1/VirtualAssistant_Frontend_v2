@@ -68,14 +68,16 @@ export default {
 
 <script setup>
 import { ref } from "vue";
+import { router } from "../../main.ts";
 
 const newPassword = ref("");
 const confirmPassword = ref("");
-// const token = this.$route.params.token;
+const token = this.$route.params.token;
 
 const resetPassword = async () => {
   try {
     const response = await fetch("http://10.4.85.21:7000/api/reset-password", {
+      // const response = await fetch("http://localhost:7000/api/reset-password", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
