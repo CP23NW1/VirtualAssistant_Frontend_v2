@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-full sm:w-[520px] h-auto sm:h-[520px] rounded-[50px] shadow flex-col justify-end items-end inline-flex absolute inset-y-20 right-0 shadow-2xl"
+    class="w-full sm:w-[520px] h-auto sm:h-[520px] rounded-[50px] shadow flex-col justify-end items-end inline-flex absolute right-0 bottom-20 mt-5shadow-2xl"
   >
     <div
       class="flex justify-between self-stretch p-3 bg-gradient-to-r from-blue-600 to-indigo-500 rounded-t-lg"
@@ -83,7 +83,6 @@
             class="mt-2 rounded-md bg-white border-transparent focus:border-white bg-white focus:ring-0 w-9/12"
             @keyup.enter="handleUserSubmit"
           />
-
           <button
             type="button"
             @click="handleUserSubmit"
@@ -104,6 +103,62 @@
           </button>
         </div>
       </div>
+    </div>
+    <div class="mt-4 inline-flex">
+      <button
+        @click="startRecognition"
+        :disabled="startButtonDisabled"
+        class="w-250 h-250 rounded-full text-white bg-blue-700 hover:bg-blue-800 font-medium text-sm p-2.5 text-center inline-flex items-center justify-center me-2"
+      >
+        <p class="flex items-center justify-center">
+          <svg
+            style="color: white"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-mic"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z"
+              fill="white"
+            ></path>
+            <path
+              d="M10 8a2 2 0 1 1-4 0V3a2 2 0 1 1 4 0v5zM8 0a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V3a3 3 0 0 0-3-3z"
+              fill="white"
+            ></path>
+          </svg>
+          Start Speaking
+        </p>
+      </button>
+      <button
+        @click="stopRecognition"
+        :disabled="stopButtonDisabled"
+        class="w-250 h-250 rounded-full text-white bg-red-600 hover:bg-red-700 font-medium text-sm p-2.5 text-center inline-flex items-center justify-center me-2"
+      >
+        <p class="flex items-center justify-center">
+          <svg
+            style="color: white"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-mic"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z"
+              fill="white"
+            ></path>
+            <path
+              d="M10 8a2 2 0 1 1-4 0V3a2 2 0 1 1 4 0v5zM8 0a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V3a3 3 0 0 0-3-3z"
+              fill="white"
+            ></path>
+          </svg>
+          Stop Speaking
+        </p>
+      </button>
     </div>
   </div>
 
@@ -135,12 +190,18 @@
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
         >
-          <path
+          <!-- <path
             d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
-          />
+          /> -->
         </svg>
       </div>
     </div>
+    <!-- <button
+      class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+      @click="stopAudio"
+    >
+      Stop Sound
+    </button> -->
   </footer>
 </template>
 
@@ -177,7 +238,7 @@ const messages = reactive([]);
 const token = localStorage.getItem("token");
 
 function clearchat() {
-  fetch("http://localhost:7000/api/delete_message", {
+  fetch("http://10.4.85.21:7000/api/delete_message", {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -229,7 +290,7 @@ function handleUserSubmit() {
 
   const assistantMsg = {
     role: "assistant",
-    content: "Loading...",
+    content: "โปรดรอสักครู่... น้องมณีกำลังคิดคำตอบ...",
   };
   messages.push(assistantMsg);
   scrollToBottom();
@@ -241,8 +302,8 @@ function handleUserSubmit() {
   };
 
   try {
-    // fetch("http://10.4.85.21:7000/api/user_message", {
-    fetch("http://localhost:7000/api/user_message", {
+    fetch("http://10.4.85.21:7000/api/user_message", {
+      // fetch("http://localhost:7000/api/user_message", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -288,7 +349,7 @@ function historyMessage() {
   }
   try {
     fetch("http://10.4.85.21:7000/api/history_message", {
-    // fetch("http://localhost:7000/api/history_message", {
+      // fetch("http://localhost:7000/api/history_message", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -320,6 +381,19 @@ onMounted(() => {
 watch(messages, () => {
   scrollToBottom();
 });
+
+async function stopAudio() {
+  const audio = document.getElementById("voice");
+  if (!audio.paused) {
+    audio.pause();
+    audio.currentTime = 0;
+  }
+
+  const lappl2dman = LAppLive2DManager.getInstance();
+  const tororoModel = lappl2dman.getModel(0);
+  tororoModel._finishedMotion;
+  tororoModel.startMotion("Idle", 2, PriorityForce, lappl2dman._finishedMotion);
+}
 
 const sdk = require("microsoft-cognitiveservices-speech-sdk");
 const key = "8d959935a5324cd6af89d3be89088263";
@@ -364,4 +438,42 @@ async function speakAssistantResponse(content, selectedSound) {
   tororoModel.startMotion("Idle", 2, PriorityForce, lappl2dman._finishedMotion);
   setTimeout(() => window.URL.revokeObjectURL(url), 3000);
 }
+
+const startButtonDisabled = ref(false);
+const stopButtonDisabled = ref(true);
+let recognizer = null;
+
+const speechConfig = sdk.SpeechConfig.fromSubscription(key, region);
+speechConfig.speechRecognitionLanguage = "th-TH";
+
+const startRecognition = () => {
+  recognizer = new sdk.SpeechRecognizer(speechConfig);
+  console.error("start");
+  recognizer.recognized = (s, e) => {
+    if (e.result.reason === sdk.ResultReason.RecognizedSpeech) {
+      userQueryText.value += e.result.text + "\n";
+      console.error(e.result.text);
+    }
+  };
+  recognizer.startContinuousRecognitionAsync();
+  startButtonDisabled.value = true;
+  stopButtonDisabled.value = false;
+};
+
+const stopRecognition = () => {
+  if (recognizer) {
+    recognizer.stopContinuousRecognitionAsync(
+      () => {
+        recognizer.close();
+        console.error("close");
+        recognizer = null;
+        startButtonDisabled.value = false;
+        stopButtonDisabled.value = true;
+      },
+      (err) => {
+        console.error("Error stopping recognition:", err);
+      },
+    );
+  }
+};
 </script>
